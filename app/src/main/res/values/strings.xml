@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+    <string name="no_internet">No Internet Connection</string>
+    <string name="weather_api_key">1d0456a380e0dd3b35ff3544992c6d46</string>
 </resources>
