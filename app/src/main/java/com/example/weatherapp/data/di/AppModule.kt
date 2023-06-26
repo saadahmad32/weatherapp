@@ -39,9 +39,9 @@ object AppModule {
     @Provides
     fun provideHttpClient(@ApplicationContext context: Context): OkHttpClient {
         val okHttpClient = OkHttpClient.Builder()
-       // okHttpClient.addInterceptor(AuthInterceptor(context))
+        // okHttpClient.addInterceptor(AuthInterceptor(context))
         okHttpClient.addInterceptor(NetworkInterceptor(context))
-     //   okHttpClient.addInterceptor(AuthApiKeyInterceptor(context))
+        //   okHttpClient.addInterceptor(AuthApiKeyInterceptor(context))
         okHttpClient.hostnameVerifier { hostname, session -> true }
         okHttpClient.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         okHttpClient.readTimeout(60, TimeUnit.SECONDS)

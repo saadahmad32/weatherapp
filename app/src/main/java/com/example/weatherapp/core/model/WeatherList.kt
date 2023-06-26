@@ -16,5 +16,6 @@ data class WeatherList(
     @SerializedName("list")
     val list: List<MainWeather>,
     @SerializedName("message")
-    val message: Int
+    val message: Int,
+    var zipcode: String
 ) : Parcelable
