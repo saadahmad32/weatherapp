@@ -4,12 +4,8 @@ import com.google.gson.annotations.SerializedName
 import org.json.JSONArray
 
 data class ApiError(
-    @SerializedName("error")
-    var error: String,
-    @SerializedName("error_description")
-    var error_description: String,
-    @SerializedName("validationErrors")
-    var validationErrors: JSONArray? = null,
-    @SerializedName("validationErrorMessages")
-    var validationErrorMessages: JSONArray? = null,
+    @SerializedName("cod")
+    var code: String,
+    @SerializedName("message")
+    var message: String
 )

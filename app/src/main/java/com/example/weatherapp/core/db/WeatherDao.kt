@@ -69,7 +69,10 @@ class WeatherDao(private val dbHelper: WeatherDatabaseHelper) {
             val zipCode = if (zipCodeIndex >= 0) cursor.getString(zipCodeIndex) else null
 
             val city = Gson().fromJson(cityJson, City::class.java)
-            val list = Gson().fromJson<ArrayList<MainWeather>>(listJson, object : TypeToken<ArrayList<MainWeather>>() {}.type)
+            val list = Gson().fromJson<ArrayList<MainWeather>>(
+                listJson,
+                object : TypeToken<ArrayList<MainWeather>>() {}.type
+            )
 
             WeatherList(
                 city,
@@ -101,6 +104,59 @@ class WeatherDao(private val dbHelper: WeatherDatabaseHelper) {
         db.update(MainWeatherTable.TABLE_NAME, contentValues, selection, selectionArgs)
         db.close()
     }
+
+    fun getWeatherListByZipCode(zipcode: String): WeatherList? {
+        val db = dbHelper.readableDatabase
+        val selection = "${MainWeatherTable.COLUMN_ZIPCODE} = ?"
+        val selectionArgs = arrayOf(zipcode)
+        val cursor = db.query(
+            MainWeatherTable.TABLE_NAME,
+            null,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null
+        )
+
+        val weatherList: WeatherList? = if (cursor.moveToFirst()) {
+            val cityJsonIndex = cursor.getColumnIndex(MainWeatherTable.COLUMN_CITY)
+            val cntIndex = cursor.getColumnIndex(MainWeatherTable.COLUMN_CNT)
+            val codIndex = cursor.getColumnIndex(MainWeatherTable.COLUMN_COD)
+            val listJsonIndex = cursor.getColumnIndex(MainWeatherTable.COLUMN_LIST)
+            val messageIndex = cursor.getColumnIndex(MainWeatherTable.COLUMN_MESSAGE)
+            val zipCodeIndex = cursor.getColumnIndex(MainWeatherTable.COLUMN_ZIPCODE)
+
+            val cityJson = if (cityJsonIndex >= 0) cursor.getString(cityJsonIndex) else null
+            val cnt = if (cntIndex >= 0) cursor.getInt(cntIndex) else 0
+            val cod = if (codIndex >= 0) cursor.getString(codIndex) else null
+            val listJson = if (listJsonIndex >= 0) cursor.getString(listJsonIndex) else null
+            val message = if (messageIndex >= 0) cursor.getInt(messageIndex) else 0
+            val zipCode = if (zipCodeIndex >= 0) cursor.getString(zipCodeIndex) else null
+
+            val city = Gson().fromJson(cityJson, City::class.java)
+            val list = Gson().fromJson<ArrayList<MainWeather>>(
+                listJson,
+                object : TypeToken<ArrayList<MainWeather>>() {}.type
+            )
+
+            WeatherList(
+                city,
+                cnt,
+                cod!!,
+                list,
+                message,
+                zipCode!!
+            )
+        } else {
+            null
+        }
+
+        cursor.close()
+        db.close()
+        return weatherList
+    }
+
     fun clearWeatherData() {
         val db = dbHelper.writableDatabase
         db.delete(MainWeatherTable.TABLE_NAME, null, null)

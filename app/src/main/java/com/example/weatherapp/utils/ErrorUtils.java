@@ -9,24 +9,21 @@ public class ErrorUtils {
             JSONObject json = new JSONObject(mjson);
 
             ApiError error = new ApiError(
-                    json.optString("error", ""),
-                    json.optString("error_description", ""),
-                    json.optJSONArray("validationErrors"),
-                    json.optJSONArray("validationErrorMessages")
-                    // Objects.requireNonNull(json.optJSONArray("validationErrors"))
+                    json.optString("cod", ""),
+                    json.optString("message", "")
             );
             return error;
         } catch (Exception ex) {
-            return new ApiError("", "401", null, null);
+            return new ApiError("401", "");
         }
     }
 
     public static ApiError parseError(Throwable t) {
         try {
-            return new ApiError(t.getMessage(), t.getLocalizedMessage(), null, null);
+            return new ApiError(t.getMessage(), t.getLocalizedMessage());
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ApiError(t.getMessage(), t.getLocalizedMessage(), null, null);
+            return new ApiError(t.getMessage(), t.getLocalizedMessage());
         }
     }
 }

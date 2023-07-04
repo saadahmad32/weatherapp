@@ -23,9 +23,15 @@ class WeatherListAct : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_weather_list)
-        weatherList = intent.getParcelableArrayListExtra("WeatherList", MainWeather::class.java) as ArrayList<MainWeather>
+        weatherList = intent.getParcelableArrayListExtra(
+            "WeatherList",
+            MainWeather::class.java
+        ) as ArrayList<MainWeather>
         LoggerUtils.info(TAG, "weatherList: ${weatherList.size}")
         setUpRecyclerViewForCustomer()
+        binding.back.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setUpRecyclerViewForCustomer() {

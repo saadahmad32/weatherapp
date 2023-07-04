@@ -2,6 +2,8 @@ package com.example.weatherapp.utils
 
 import android.app.Dialog
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.text.format.DateFormat
 import android.text.format.DateUtils
 import android.view.Gravity
@@ -54,4 +56,21 @@ fun isYesterday(d: Date): Boolean {
 
 fun isTomorrow(d: Date): Boolean {
     return DateUtils.isToday(d.time - DateUtils.DAY_IN_MILLIS)
+}
+
+fun Context.isConnected(): Boolean {
+    var result = false
+    val connectivityManager =
+        this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val networkCapabilities = connectivityManager.activeNetwork ?: return false
+    val actNw =
+        connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+    result = when {
+        actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+        actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+        actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+        else -> false
+    }
+
+    return result
 }

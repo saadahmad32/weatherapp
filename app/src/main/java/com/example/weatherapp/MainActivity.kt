@@ -36,6 +36,7 @@ import com.example.weatherapp.core.model.WeatherParam
 import com.example.weatherapp.core.viewmodels.WeatherViewModel
 import com.example.weatherapp.utils.LoggerUtils
 import com.example.weatherapp.utils.Status
+import com.example.weatherapp.utils.isConnected
 import com.example.weatherapp.utils.toast
 
 @AndroidEntryPoint
@@ -121,11 +122,27 @@ class MainActivity : ComponentActivity() {
         // Perform some action with zip code and country code
         // For example, you can print them or pass them to another function
         println("Zip Code: $zipCode")
-        doCallForWeatherApi(
-            WeatherParam(
-                zipCode, resources.getString(R.string.weather_api_key), "metric", "5"
+        if (isConnected()) {
+            doCallForWeatherApi(
+                WeatherParam(
+                    zipCode, resources.getString(R.string.weather_api_key), "metric", "5"
+                )
             )
-        )
+        } else {
+            val isZipcodeExists = weatherDao.isZipCodeDataExists(zipCode)
+            if (isZipcodeExists) {
+                val storedWeatherList = weatherDao.getWeatherListByZipCode(zipCode)
+                if (storedWeatherList != null) {
+                    LoggerUtils.info(TAG, "Existing Weather List: ${storedWeatherList.list.size}")
+                    weatherList = storedWeatherList
+                    gotoNextAct()
+                } else {
+                    LoggerUtils.info(TAG, "Not Existing Weather List exists")
+                }
+            } else {
+                toast("This zipcode: $zipCode is not present in the DB! Try with internet on!")
+            }
+        }
     }
 
     @Preview(showBackground = true)
@@ -152,7 +169,8 @@ class MainActivity : ComponentActivity() {
                     LoggerUtils.info(TAG, "Database_Path: $databasePath")
                     val zipCode = weatherList?.zipcode
                     LoggerUtils.info(TAG, "zipcode: $zipCode")
-                    val isZipcodeExists = zipCode?.let { it1 -> weatherDao.isZipCodeDataExists(it1) }
+                    val isZipcodeExists =
+                        zipCode?.let { it1 -> weatherDao.isZipCodeDataExists(it1) }
                     if (isZipcodeExists == true) {
                         LoggerUtils.info(TAG, "zipcode present, call update function : $zipCode")
                         weatherList?.let { it1 -> weatherDao.updateWeatherList(it1) }
@@ -160,7 +178,10 @@ class MainActivity : ComponentActivity() {
                     } else {
                         weatherList?.let { it1 -> weatherDao.saveWeatherList(it1) }
                         val savedList: WeatherList? = weatherDao.getWeatherList()
-                        LoggerUtils.info(TAG, "zipcode Not Present and new row added: ${savedList?.zipcode}")
+                        LoggerUtils.info(
+                            TAG,
+                            "zipcode Not Present and new row added: ${savedList?.zipcode}"
+                        )
 //                        // The zipcode is not present in the database
 //                        // Perform an alternative action
                     }
@@ -181,7 +202,7 @@ class MainActivity : ComponentActivity() {
                 }
                 Status.ERROR -> {
                     isLoading = false
-                    it.message?.error?.let { it1 -> toast(it1) }
+                    it.message?.message?.let { it1 -> toast(it1) }
                 }
                 Status.LOADING -> {
                     isLoading = true
@@ -189,7 +210,8 @@ class MainActivity : ComponentActivity() {
             }
         })
     }
-    private fun gotoNextAct(){
+
+    private fun gotoNextAct() {
         val intent = Intent(this, WeatherListAct::class.java)
         intent.putExtra("WeatherList", weatherList?.list)
         startActivity(intent)

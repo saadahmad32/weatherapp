@@ -23,7 +23,7 @@ abstract class BaseDataSource {
 
             return error(errorRes)
         } catch (e: Exception) {
-            return error(ApiError(e.message!!, "Internet Connection Error", null))
+            return error(ApiError(e.message!!, "Internet Connection Error"))
         }
     }
 
