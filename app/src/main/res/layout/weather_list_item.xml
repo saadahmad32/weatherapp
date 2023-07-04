@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="dataList"
+            type="com.example.weatherapp.core.model.MainWeather" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/bagsMainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.example.weatherapp.utils.CustomTextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    android:text="@{dataList.dtTxt}"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/air_awesome_purple_200"
+                    android:textSize="@dimen/_12ssp"
+                    app:font_name="objectiveMedium" />
+
+                <com.example.weatherapp.utils.CustomTextView
+                    android:id="@+id/tvRegion"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    android:text="@{String.valueOf(dataList.main.temp)}"
+                    android:textAlignment="center"
+                    android:textColor="@color/air_awesome_purple_200"
+                    android:textSize="@dimen/_12ssp"
+                    app:font_name="objectiveMedium" />
+
+                <com.example.weatherapp.utils.CustomTextView
+                    android:id="@+id/tvCode"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    android:text="@{String.valueOf(dataList.wind.speed)}"
+                    android:textAlignment="center"
+                    android:textColor="@color/air_awesome_purple_200"
+                    android:textSize="@dimen/_12ssp"
+                    app:font_name="objectiveMedium" />
+            </LinearLayout>
+
+            <com.example.weatherapp.utils.CustomTextView
+                android:id="@+id/tvCapital"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_35sdp"
+                android:includeFontPadding="false"
+                android:text="Capital List"
+                android:textColor="@color/air_awesome_purple_200"
+                android:textSize="@dimen/_12ssp"
+                app:font_name="objectiveMedium" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/background_dark" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

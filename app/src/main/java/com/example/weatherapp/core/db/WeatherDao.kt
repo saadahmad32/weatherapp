@@ -69,8 +69,7 @@ class WeatherDao(private val dbHelper: WeatherDatabaseHelper) {
             val zipCode = if (zipCodeIndex >= 0) cursor.getString(zipCodeIndex) else null
 
             val city = Gson().fromJson(cityJson, City::class.java)
-            val list = Gson().fromJson<List<MainWeather>>(listJson, object : TypeToken<List<MainWeather>>() {}.type)
-
+            val list = Gson().fromJson<ArrayList<MainWeather>>(listJson, object : TypeToken<ArrayList<MainWeather>>() {}.type)
 
             WeatherList(
                 city,

@@ -1,6 +1,7 @@
 package com.example.weatherapp
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -163,6 +164,7 @@ class MainActivity : ComponentActivity() {
 //                        // The zipcode is not present in the database
 //                        // Perform an alternative action
                     }
+                    gotoNextAct()
 //                    val list = countryName?.let { it1 -> weatherDao.isCountryDataExists(it1) }
 //                    if (list != null) {
 //                        for (weather in list) {
@@ -186,5 +188,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         })
+    }
+    private fun gotoNextAct(){
+        val intent = Intent(this, WeatherListAct::class.java)
+        intent.putExtra("WeatherList", weatherList?.list)
+        startActivity(intent)
     }
 }
