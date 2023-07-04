@@ -14,7 +14,8 @@ class WeatherRepo @Inject constructor(
                 remoteDataSource.getWeatherByZipcode(
                     weatherParam.zip,
                     weatherParam.appId,
-                    weatherParam.units
+                    weatherParam.units,
+                    weatherParam.cnt
                 )
             }
         )

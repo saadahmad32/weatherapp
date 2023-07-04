@@ -25,54 +25,55 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <com.example.weatherapp.utils.CustomTextView
                     android:id="@+id/tvName"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:text="@{dataList.dtTxt}"
                     android:textAlignment="textStart"
-                    android:textColor="@color/air_awesome_purple_200"
+                    android:textColor="@android:color/black"
                     android:textSize="@dimen/_12ssp"
+                    app:convertDate="@{dataList.dtTxt}"
                     app:font_name="objectiveMedium" />
 
                 <com.example.weatherapp.utils.CustomTextView
                     android:id="@+id/tvRegion"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
                     android:includeFontPadding="false"
-                    android:text="@{String.valueOf(dataList.main.temp)}"
-                    android:textAlignment="center"
-                    android:textColor="@color/air_awesome_purple_200"
+                    android:text="@{String.valueOf(dataList.main.temp) +` °C`}"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/black"
                     android:textSize="@dimen/_12ssp"
                     app:font_name="objectiveMedium" />
 
                 <com.example.weatherapp.utils.CustomTextView
                     android:id="@+id/tvCode"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:text="@{String.valueOf(dataList.wind.speed)}"
-                    android:textAlignment="center"
-                    android:textColor="@color/air_awesome_purple_200"
+                    android:text="@{String.valueOf(dataList.wind.speed) + ` mps`}"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/black"
                     android:textSize="@dimen/_12ssp"
                     app:font_name="objectiveMedium" />
-            </LinearLayout>
 
-            <com.example.weatherapp.utils.CustomTextView
-                android:id="@+id/tvCapital"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_35sdp"
-                android:includeFontPadding="false"
-                android:text="Capital List"
-                android:textColor="@color/air_awesome_purple_200"
-                android:textSize="@dimen/_12ssp"
-                app:font_name="objectiveMedium" />
+                <com.example.weatherapp.utils.CustomTextView
+                    android:id="@+id/tvCapital"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@{String.valueOf(dataList.weather[0].description)}"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:font_name="objectiveMedium"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

@@ -10,7 +10,8 @@ interface ApiService {
     suspend fun getWeatherByZipcode(
         @Query("zip") zip: String,
         @Query("appid") appid: String,
-        @Query("units") units: String
+        @Query("units") units: String,
+        @Query("cnt") cnt: String
     ): Response<WeatherList>
 
 }

@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class WeatherParam(
     var zip: String,
     var appId: String,
-    var units: String
+    var units: String,
+    var cnt: String
 ) : Parcelable

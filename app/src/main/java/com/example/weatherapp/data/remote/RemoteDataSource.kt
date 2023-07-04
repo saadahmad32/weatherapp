@@ -8,8 +8,8 @@ class RemoteDataSource @Inject constructor(
     private val apiService: ApiService,
 ) : BaseDataSource() {
 
-    suspend fun getWeatherByZipcode(zip: String, appId: String, units: String) =
+    suspend fun getWeatherByZipcode(zip: String, appId: String, units: String, cnt: String) =
         getResult {
-            apiService.getWeatherByZipcode(zip, appId, units)
+            apiService.getWeatherByZipcode(zip, appId, units, cnt)
         }
 }

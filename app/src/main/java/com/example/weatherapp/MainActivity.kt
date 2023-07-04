@@ -123,7 +123,7 @@ class MainActivity : ComponentActivity() {
         println("Zip Code: $zipCode")
         doCallForWeatherApi(
             WeatherParam(
-                zipCode, resources.getString(R.string.weather_api_key), "metric"
+                zipCode, resources.getString(R.string.weather_api_key), "metric", "5"
             )
         )
     }
