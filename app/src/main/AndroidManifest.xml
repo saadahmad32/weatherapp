@@ -16,6 +16,9 @@
         android:theme="@style/Theme.WeatherApp"
         tools:targetApi="31">
         <activity
+            android:name=".WeatherDetailsAct"
+            android:exported="false" />
+        <activity
             android:name=".WeatherListAct"
             android:exported="false"
             android:label="@string/title_activity_weather_list"

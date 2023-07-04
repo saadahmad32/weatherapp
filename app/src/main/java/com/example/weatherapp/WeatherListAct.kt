@@ -1,5 +1,6 @@
 package com.example.weatherapp
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import com.example.weatherapp.core.model.MainWeather
 import com.example.weatherapp.core.model.WeatherList
 import com.example.weatherapp.databinding.ActivityWeatherListBinding
 import com.example.weatherapp.utils.LoggerUtils
+import com.google.gson.Gson
 
 class WeatherListAct : AppCompatActivity() {
 
@@ -23,13 +25,10 @@ class WeatherListAct : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_weather_list)
-        weatherList = intent.getParcelableArrayListExtra(
-            "WeatherList",
-            MainWeather::class.java
-        ) as ArrayList<MainWeather>
+        weatherList = intent.getParcelableArrayListExtra("WeatherList", MainWeather::class.java) as ArrayList<MainWeather>
         LoggerUtils.info(TAG, "weatherList: ${weatherList.size}")
         setUpRecyclerViewForCustomer()
-        binding.back.setOnClickListener {
+        binding.back.setOnClickListener{
             finish()
         }
     }
@@ -39,5 +38,11 @@ class WeatherListAct : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.customerRev.layoutManager = layoutManager
         binding.setVariable(BR.data, weatherList)
+    }
+
+    fun gotoDetailsAct(mainWeather: MainWeather) {
+        val intent = Intent(this, WeatherDetailsAct::class.java)
+        intent.putExtra("weatherDetails", Gson().toJson(mainWeather))
+        startActivity(intent)
     }
 }

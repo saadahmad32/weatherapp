@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="mainWeather"
+            type="com.example.weatherapp.core.model.MainWeather" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/weather_details_root_layout"
+        tools:context=".WeatherDetailsActivity">
+        <LinearLayout
+            android:id="@+id/headerCover"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/white"
+            android:elevation="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:gravity="start|center">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/back"/>
+            <com.example.weatherapp.utils.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/weather_details"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/_14ssp"
+                app:font_name="objectiveRegular" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.format(`Temperature: %s °C`, mainWeather.main.temp)}" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.format(`It feels like: %s °C`, mainWeather.main.feelsLike)}" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.format(`It feels like: %s °C`, mainWeather.main.tempMin)}" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.format(`It feels like: %s °C`, mainWeather.main.tempMax)}" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.format(`Pressure: %s`, mainWeather.main.pressure)}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.format(`Humidity: %s%%`, mainWeather.main.humidity)}" />
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

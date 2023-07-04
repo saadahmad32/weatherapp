@@ -5,4 +5,5 @@
     <string name="title_activity_weather_list">WeatherListAct</string>
     <string name="no_search_found">No Search Found</string>
     <string name="weather_list">Weather List</string>
+    <string name="weather_details">Weather Details</string>
 </resources>

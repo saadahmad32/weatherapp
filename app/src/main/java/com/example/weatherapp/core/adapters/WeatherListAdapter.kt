@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.BR
+import com.example.weatherapp.WeatherListAct
 import com.example.weatherapp.core.model.MainWeather
 import com.example.weatherapp.databinding.WeatherListItemBinding
 import kotlin.collections.ArrayList
@@ -18,7 +19,6 @@ class WeatherListAdapter(
     private var dataList: ArrayList<MainWeather>
 ) :
     RecyclerView.Adapter<WeatherListAdapter.BindViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindViewHolder {
 
@@ -33,16 +33,17 @@ class WeatherListAdapter(
         return dataList.size
     }
 
-
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(viewHolder: BindViewHolder, position: Int) {
         val item = dataList[position]
         Log.i("TAG", "onBindViewHolder: item: $item")
         viewHolder.itemBinding.setVariable(BR.dataList, item)
+        viewHolder.itemBinding.root.setOnClickListener {
+            (context as WeatherListAct).gotoDetailsAct(item)
+        }
         //viewHolder.itemBinding.setVariable(BR.onClick, context)
         viewHolder.itemBinding.executePendingBindings()
     }
-
 
     class BindViewHolder(val itemBinding: ViewDataBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {

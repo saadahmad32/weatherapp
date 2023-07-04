@@ -44,7 +44,6 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel: WeatherViewModel by viewModels()
     private var weatherList: WeatherList? = null
-    private lateinit var loaderDialog: Dialog
     private lateinit var dbHelper: WeatherDatabaseHelper
     private lateinit var weatherDao: WeatherDao
     private var TAG = "MainActivity"
@@ -56,7 +55,6 @@ class MainActivity : ComponentActivity() {
         weatherDao = WeatherDao(dbHelper)
         setContent {
             WeatherAppTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
                 ) {
@@ -119,9 +117,6 @@ class MainActivity : ComponentActivity() {
 
     private fun performAction(zipCode: String) {
         zipCodeInput = zipCode
-        // Perform some action with zip code and country code
-        // For example, you can print them or pass them to another function
-        println("Zip Code: $zipCode")
         if (isConnected()) {
             doCallForWeatherApi(
                 WeatherParam(
@@ -182,23 +177,8 @@ class MainActivity : ComponentActivity() {
                             TAG,
                             "zipcode Not Present and new row added: ${savedList?.zipcode}"
                         )
-//                        // The zipcode is not present in the database
-//                        // Perform an alternative action
                     }
                     gotoNextAct()
-//                    val list = countryName?.let { it1 -> weatherDao.isCountryDataExists(it1) }
-//                    if (list != null) {
-//                        for (weather in list) {
-//                            LoggerUtils.info(TAG, "Existed Data: ${weather.dtTxt}")
-//                        }
-//                        weatherList?.let { it1 -> weatherDao.updateWeatherList(it1) }
-//                        // Country data exists in the database
-//                    } else {
-//                        // Country data does not exist in the database
-//                        weatherList?.let { it1 -> weatherDao.saveWeatherList(it1) }
-//                    }
-//
-
                 }
                 Status.ERROR -> {
                     isLoading = false
